@@ -214,7 +214,9 @@ console.log('Portfolio loaded successfully! 🚀');
 // ========================================
 const mouseCloudContainer = document.getElementById('mouse-clouds');
 const clouds = [];
-const maxClouds = 15;
+// Reduce particle count on mobile for performance
+const isMobile = window.innerWidth < 768;
+const maxClouds = isMobile ? 6 : 15;
 let mouseX = 0;
 let mouseY = 0;
 let isMouseMoving = false;
