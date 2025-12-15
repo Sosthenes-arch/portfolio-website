@@ -208,3 +208,193 @@ window.addEventListener('load', () => {
 });
 
 console.log('Portfolio loaded successfully! 🚀');
+
+// ========================================
+// Mouse Cloud Effect
+// ========================================
+const mouseCloudContainer = document.getElementById('mouse-clouds');
+const clouds = [];
+const maxClouds = 15;
+let mouseX = 0;
+let mouseY = 0;
+let isMouseMoving = false;
+let mouseTimeout;
+
+// Create mouse glow element
+const mouseGlow = document.createElement('div');
+mouseGlow.className = 'mouse-glow';
+document.body.appendChild(mouseGlow);
+
+// Cloud class for managing individual cloud particles
+class CloudParticle {
+    constructor(x, y) {
+        this.element = document.createElement('div');
+        this.inner = document.createElement('div');
+
+        const type = Math.floor(Math.random() * 3) + 1;
+        this.element.className = `mouse-cloud type-${type}`;
+        this.inner.className = 'mouse-cloud-inner';
+        this.element.appendChild(this.inner);
+
+        this.size = Math.random() * 80 + 60;
+        this.element.style.width = `${this.size}px`;
+        this.element.style.height = `${this.size}px`;
+
+        this.x = x - this.size / 2;
+        this.y = y - this.size / 2;
+        this.targetX = this.x;
+        this.targetY = this.y;
+
+        this.velocityX = (Math.random() - 0.5) * 2;
+        this.velocityY = (Math.random() - 0.5) * 2;
+        this.friction = 0.98;
+        this.attractionStrength = 0.02 + Math.random() * 0.03;
+
+        this.opacity = 0;
+        this.maxOpacity = 0.6 + Math.random() * 0.4;
+        this.fadeSpeed = 0.02;
+        this.life = 1;
+        this.decay = 0.001 + Math.random() * 0.002;
+
+        this.driftX = (Math.random() - 0.5) * 0.5;
+        this.driftY = -0.2 - Math.random() * 0.3; // Slight upward drift
+
+        this.pulseOffset = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.02 + Math.random() * 0.02;
+
+        this.element.style.opacity = '0';
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
+
+        mouseCloudContainer.appendChild(this.element);
+    }
+
+    update(mouseX, mouseY, isActive) {
+        // Calculate attraction to mouse
+        if (isActive) {
+            const dx = mouseX - this.size / 2 - this.x;
+            const dy = mouseY - this.size / 2 - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance > 50) {
+                this.velocityX += (dx / distance) * this.attractionStrength;
+                this.velocityY += (dy / distance) * this.attractionStrength;
+            }
+        }
+
+        // Add drift
+        this.velocityX += this.driftX * 0.01;
+        this.velocityY += this.driftY * 0.01;
+
+        // Apply friction
+        this.velocityX *= this.friction;
+        this.velocityY *= this.friction;
+
+        // Update position
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+
+        // Fade in
+        if (this.opacity < this.maxOpacity && this.life > 0.5) {
+            this.opacity += this.fadeSpeed;
+        }
+
+        // Life decay
+        this.life -= this.decay;
+
+        // Fade out when life is low
+        if (this.life < 0.3) {
+            this.opacity -= this.fadeSpeed * 2;
+        }
+
+        // Pulse effect
+        const pulse = Math.sin(Date.now() * this.pulseSpeed + this.pulseOffset) * 0.1 + 1;
+
+        // Apply transforms
+        this.element.style.transform = `translate(${this.x}px, ${this.y}px) scale(${pulse})`;
+        this.element.style.opacity = Math.max(0, this.opacity);
+
+        return this.life > 0 && this.opacity > 0;
+    }
+
+    destroy() {
+        if (this.element.parentNode) {
+            this.element.parentNode.removeChild(this.element);
+        }
+    }
+}
+
+// Spawn new cloud at mouse position
+function spawnCloud(x, y) {
+    if (clouds.length >= maxClouds) {
+        const oldCloud = clouds.shift();
+        oldCloud.destroy();
+    }
+
+    const cloud = new CloudParticle(x, y);
+    clouds.push(cloud);
+}
+
+// Animation loop
+function animateClouds() {
+    // Update mouse glow position
+    mouseGlow.style.left = `${mouseX}px`;
+    mouseGlow.style.top = `${mouseY}px`;
+    mouseGlow.style.opacity = isMouseMoving ? '1' : '0.3';
+
+    // Update all clouds
+    for (let i = clouds.length - 1; i >= 0; i--) {
+        const alive = clouds[i].update(mouseX, mouseY, isMouseMoving);
+        if (!alive) {
+            clouds[i].destroy();
+            clouds.splice(i, 1);
+        }
+    }
+
+    requestAnimationFrame(animateClouds);
+}
+
+// Mouse move handler
+let spawnCounter = 0;
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    isMouseMoving = true;
+
+    // Spawn clouds at intervals
+    spawnCounter++;
+    if (spawnCounter >= 8) { // Spawn every 8th mouse event
+        spawnCloud(mouseX, mouseY);
+        spawnCounter = 0;
+    }
+
+    // Reset mouse moving state after delay
+    clearTimeout(mouseTimeout);
+    mouseTimeout = setTimeout(() => {
+        isMouseMoving = false;
+    }, 150);
+});
+
+// Touch support for mobile
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+        isMouseMoving = true;
+
+        spawnCounter++;
+        if (spawnCounter >= 5) {
+            spawnCloud(mouseX, mouseY);
+            spawnCounter = 0;
+        }
+
+        clearTimeout(mouseTimeout);
+        mouseTimeout = setTimeout(() => {
+            isMouseMoving = false;
+        }, 150);
+    }
+});
+
+// Start animation loop
+animateClouds();
+
+console.log('Mouse cloud effect initialized! ☁️');
