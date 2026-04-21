@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to enable the Kubernetes Dashboard on Minikube with this step-by-step guide. Visualize and manage your local cluster easily.">
+    <title>How to Enable Kubernetes Dashboard on Minikube | Uche Ugochukwu Blog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .blog-post-page {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        .blog-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .blog-featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .blog-meta {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .blog-content {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 24px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        .blog-content h2 {
+            color: var(--accent-primary);
+            margin: 2.5rem 0 1rem;
+            font-size: 1.8rem;
+        }
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .blog-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        .blog-content code {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+        .blog-content pre {
+            background: #0d0d12;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+        .blog-content pre code {
+            background: transparent;
+            color: #d1d1e0;
+            padding: 0;
+            display: block;
+        }
+        .video-box {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(99, 102, 241, 0.05);
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            text-align: center;
+        }
+        .video-box .btn {
+            margin-top: 1rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: var(--transition-fast);
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        @media (max-width: 768px) {
+            .blog-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="space-gradient"></div>
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+        <div class="aurora"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="../index.html#home" class="nav-logo">
+                <span class="logo-text">UU</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../index.html#blog" class="nav-link active">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="blog-post-page container">
+        <a href="../index.html#blog" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <article>
+            <header class="blog-header">
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar-alt"></i> April 21, 2026</span>
+                    <span><i class="far fa-clock"></i> 5 Min Read</span>
+                    <span><i class="fas fa-tag"></i> Kubernetes</span>
+                </div>
+                <h1 class="hero-name" style="font-size: 3rem; -webkit-text-fill-color: initial; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                    How to Enable Kubernetes Dashboard on Minikube (Step-by-Step Guide)
+                </h1>
+            </header>
+
+            <img src="../assets/blog-images/kubernetes-dashboard.png" alt="Kubernetes Dashboard on Minikube" class="blog-featured-image">
+
+            <div class="blog-content">
+                <p>If you’re running Kubernetes locally with Minikube, the Kubernetes Dashboard provides a clean web UI to monitor and manage your cluster. The good news is that enabling it is straightforward using Minikube’s built-in add-ons.</p>
+
+                <p>This guide walks you through the exact steps—simple, practical, and ready to run.</p>
+
+                <h2>🔧 Prerequisites</h2>
+                <p>Make sure you have:</p>
+                <ul>
+                    <li><strong>Minikube installed</strong></li>
+                    <li><strong>kubectl installed</strong></li>
+                    <li>A working local environment (Docker/VirtualBox/etc.)</li>
+                </ul>
+                <p>Start your cluster if you haven’t already:</p>
+                <pre><code>minikube start</code></pre>
+
+                <h2>📦 Step 1: Check Available Add-ons</h2>
+                <p>Minikube comes with several built-in add-ons, including the dashboard.</p>
+                <p>Run:</p>
+                <pre><code>minikube addons list</code></pre>
+                <p>This shows all available add-ons and whether they are enabled or disabled.</p>
+
+                <h2>📊 Step 2: Enable Metrics Server</h2>
+                <p>The <code>metrics-server</code> is required for resource usage (CPU/memory) in the dashboard.</p>
+                <pre><code>minikube addons enable metrics-server</code></pre>
+
+                <h2>🖥️ Step 3: Enable Kubernetes Dashboard</h2>
+                <p>Now enable the dashboard itself:</p>
+                <pre><code>minikube addons enable dashboard</code></pre>
+
+                <h2>✅ Step 4: Confirm Dashboard is Enabled</h2>
+                <p>Re-run the add-ons list to verify:</p>
+                <pre><code>minikube addons list</code></pre>
+                <p>You should now see both:</p>
+                <ul>
+                    <li><code>metrics-server</code> &rarr; <strong>enabled</strong></li>
+                    <li><code>dashboard</code> &rarr; <strong>enabled</strong></li>
+                </ul>
+
+                <h2>🚀 Step 5: Launch the Dashboard</h2>
+                <p>Finally, start the dashboard:</p>
+                <pre><code>minikube dashboard</code></pre>
+                <p>This will:</p>
+                <ul>
+                    <li>Start a proxy</li>
+                    <li>Open the dashboard in your default browser</li>
+                </ul>
+
+                <div class="video-box">
+                    <h3>🎥 Video Demonstration</h3>
+                    <p>Check out this short video walkthrough showing these steps in action!</p>
+                    <a href="https://www.tiktok.com/@lightcloud9/video/7619364227601435926?is_from_webapp=1&sender_device=pc&web_id=7511774619469268485" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-tiktok"></i> Watch on TikTok
+                    </a>
+                </div>
+
+                <h2>🧾 Full Command Summary</h2>
+                <pre><code>minikube start
+minikube addons list
+minikube addons enable metrics-server
+minikube addons enable dashboard
+minikube addons list
+minikube dashboard</code></pre>
+
+                <h2>🧠 Final Thoughts</h2>
+                <p>Using the Kubernetes Dashboard in Minikube is one of the easiest ways to visualize your cluster. With just a few commands, you can:</p>
+                <ul>
+                    <li>Monitor workloads</li>
+                    <li>View resource usage</li>
+                    <li>Debug applications visually</li>
+                </ul>
+                <p>If you’re just getting started with Kubernetes, this is a great tool to keep in your workflow.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Uche Ugochukwu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
