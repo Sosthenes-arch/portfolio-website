@@ -1657,14 +1657,14 @@ body {
 }
 
 .contact-btn.consultation-btn {
-  background: transparent;
-  border: 2px solid var(--accent-primary);
-  color: var(--accent-primary);
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 15px var(--accent-glow);
 }
 
 .contact-btn.consultation-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
   transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--accent-glow);
 }
 
 /* ========================================
