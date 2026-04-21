@@ -400,3 +400,16 @@ document.addEventListener('touchmove', (e) => {
 animateClouds();
 
 console.log('Mouse cloud effect initialized! ☁️');
+
+// ========================================
+// Email Protection Handling
+// ========================================
+const emailBtn = document.getElementById('email-contact');
+if (emailBtn) {
+    emailBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const u = 'uusustain';
+        const d = 'gmail.com';
+        window.location.href = `mailto:${u}@${d}`;
+    });
+}

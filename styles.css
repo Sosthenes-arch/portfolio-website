@@ -1645,6 +1645,17 @@ body {
   transform: translateY(-3px);
 }
 
+.contact-btn.email {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.contact-btn.email:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
 /* ========================================
    Consultation Section
    ======================================== */
