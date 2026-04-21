@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# LLM Crawler Access
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://ucheugochukwu.site/sitemap.xml
