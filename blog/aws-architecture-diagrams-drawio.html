@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to create professional AWS architecture diagrams using draw.io with this step-by-step guide and static website example.">
+    <title>How to Create AWS Architecture Diagrams Using Draw.io | Uche Ugochukwu Blog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Blog Post Structured Data for LLMs -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Create AWS Architecture Diagrams Using Draw.io (With a Static Website Example)",
+      "description": "A comprehensive guide on designing AWS cloud architecture diagrams using draw.io, featuring a practical static website hosting example with S3, CloudFront, and Route 53.",
+      "image": "https://ucheugochukwu.site/assets/blog-images/aws-architecture-drawio.png",
+      "author": {
+        "@type": "Person",
+        "name": "Uche Ugochukwu"
+      },
+      "datePublished": "2026-04-21",
+      "keywords": "AWS, Draw.io, Cloud Architecture, S3, CloudFront, Route 53, Diagramming",
+      "publisher": {
+        "@type": "Person",
+        "name": "Uche Ugochukwu"
+      }
+    }
+    </script>
+
+    <style>
+        .blog-post-page {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        .blog-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .blog-featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .blog-meta {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .blog-content {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 24px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        .blog-content h2 {
+            color: var(--accent-primary);
+            margin: 2.5rem 0 1rem;
+            font-size: 1.8rem;
+        }
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .blog-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: var(--transition-fast);
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        .highlight-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        @media (max-width: 768px) {
+            .blog-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="space-gradient"></div>
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+        <div class="aurora"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="../index.html#home" class="nav-logo">
+                <span class="logo-text">UU</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../index.html#blog" class="nav-link active">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="blog-post-page container">
+        <a href="../index.html#blog" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <article>
+            <header class="blog-header">
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar-alt"></i> April 21, 2026</span>
+                    <span><i class="far fa-clock"></i> 7 Min Read</span>
+                    <span><i class="fas fa-tag"></i> AWS Architecture</span>
+                </div>
+                <h1 class="hero-name" style="font-size: 3rem; -webkit-text-fill-color: initial; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                    How to Create AWS Architecture Diagrams Using Draw.io
+                </h1>
+            </header>
+
+            <img src="../assets/blog-images/aws-architecture-drawio.png" alt="AWS Architecture Diagramming in Draw.io" class="blog-featured-image">
+
+            <div class="blog-content">
+                <p>Creating clear and professional architecture diagrams is a critical skill for any Cloud Engineer or Architect. Diagrams allow you to visualize complex systems, communicate designs to stakeholders, and maintain accurate documentation of your cloud solutions.</p>
+
+                <p>In this guide, I'll show you how to leverage <strong>draw.io</strong> (also known as diagrams.net) to create industry-standard AWS architectural diagrams, using a practical static website hosting example.</p>
+
+                <h2>Step 1: Access Draw.io</h2>
+                <p>To get started, navigate to the web application:</p>
+                <p><a href="https://app.diagrams.net" target="_blank" style="color: var(--accent-primary);">👉 app.diagrams.net</a></p>
+                <p>Once inside:</p>
+                <ul>
+                    <li>Click <strong>File &rarr; New</strong></li>
+                    <li>Enter a name for your diagram (e.g., <em>"AWS Static Website Architecture"</em>)</li>
+                    <li>While templates exist for AWS, starting with a <strong>Blank Canvas</strong> is often best for learning how to structure individual components manually.</li>
+                </ul>
+
+                <h2>Step 2: Enable AWS Official Shapes</h2>
+                <p>Standard icons don't always cut it in professional environments. You need official AWS icons:</p>
+                <ul>
+                    <li>On the left panel, click <strong>+ More Shapes</strong> (bottom left)</li>
+                    <li>Check the <strong>AWS19</strong> or <strong>AWS Cloud</strong> libraries</li>
+                    <li>Click <strong>Apply</strong></li>
+                </ul>
+                <p>This populates your library with hundreds of standardized icons for S3, EC2, Lambda, and more.</p>
+
+                <h2>Step 3: Planning the Architecture</h2>
+                <p>Before dragging icons, define your requirements. For a globally available static website, we need:</p>
+                <ul>
+                    <li><strong>Amazon S3</strong>: For hosting our source files (HTML/CSS/JS).</li>
+                    <li><strong>Amazon CloudFront</strong>: Our Content Delivery Network (CDN) for low-latency delivery.</li>
+                    <li><strong>Amazon Route 53</strong>: For managing DNS and domain resolution.</li>
+                    <li><strong>AWS Cloud Boundary</strong>: To clearly delineate which services reside within our AWS environment.</li>
+                </ul>
+
+                <h2>Step 4: Building the Diagram</h2>
+                <p>Use the search bar to locate and drag your services onto the canvas. Arrange them in a logical flow: User &rarr; DNS &rarr; CDN &rarr; Origin.</p>
+                <div class="highlight-box">
+                    <strong>Pro Tip:</strong> Ensure your icons are properly aligned using the built-in grid guides to maintain a clean, professional appearance.
+                </div>
+
+                <h2>Step 5: Connecting the Flow</h2>
+                <p>Arrows aren't just lines; they represent the flow of traffic and data. In AWS architecture:</p>
+                <ul>
+                    <li>Hover over an icon to see connection points.</li>
+                    <li>Drag a line to the next service.</li>
+                    <li>Use bidirectional arrows if you want to represent request/response cycles.</li>
+                </ul>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/3Y_6MoQZv8I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <h2>Why This Architecture?</h2>
+                <p>The <strong>S3 + CloudFront + Route 53</strong> stack is a gold standard for static sites because it is:</p>
+                <ul>
+                    <li>✅ <strong>Serverless</strong>: No servers to patch or manage.</li>
+                    <li>✅ <strong>Cost-Effective</strong>: You only pay for what you use.</li>
+                    <li>✅ <strong>Scalable</strong>: CloudFront handles millions of requests automatically.</li>
+                    <li>✅ <strong>Durable</strong>: S3 provides 99.999999999% durability.</li>
+                </ul>
+
+                <h2>Final Thoughts</h2>
+                <p>Diagramming isn't just about drawing; it's about thinking through your solution before you build it. As shown in the tutorial video, draw.io provides a powerful, free platform to create professional-grade documentation for your AWS projects.</p>
+                
+                <p>Whether you're prepping for an interview or documenting a production system, these skills will set you apart as an engineer who understands the "why" behind the infrastructure.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm currently open to new opportunities and collaborations. Whether you have a project in mind or
+                    just want to say hello, feel free to reach out!</p>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/uche-u-327735190/" target="_blank"
+                        class="contact-btn linkedin">
+                        <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+                    </a>
+                    <a href="https://github.com/Sosthenes-arch" target="_blank" class="contact-btn github">
+                        <i class="fab fa-github"></i> View GitHub
+                    </a>
+                    <a href="#" id="email-contact" class="contact-btn email">
+                        <i class="fas fa-envelope"></i> Send an Email
+                    </a>
+                    <a href="https://calendly.com/usosthenes/30min" target="_blank" class="contact-btn consultation-btn">
+                        <i class="fas fa-calendar-alt"></i> Book a Call
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Uche Ugochukwu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
